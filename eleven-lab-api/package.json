@@ -1,0 +1,20 @@
+{
+  "name": "elevenlab-test-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "lodash": "^4.17.11",
+    "sequelize": "^5.9.4"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "nodemon": "^1.19.1"
+  },
+  "scripts": {
+    "start": "yarn start index.js",
+    "build": "yarn run build",
+    "dev": "nodemon index.js"
+  }
+}

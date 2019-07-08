@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+
+################################
+#
+#   Setup node container
+#
+################################
+  server:
+    build: eleven-lab-api
+    expose:
+      - ${APP_SERVER_PORT}
+    environment:
+      API_HOST: ${API_HOST}
+      APP_SERVER_PORT: ${APP_SERVER_PORT}
+    ports:
+      - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
+    volumes:
+      - ./eleven-lab-api/:/usr/app/eleven-lab-api
+    command: yarn run dev
+
+################################
+#
+#   Setup react container
+#
+################################
+  client:
+    build: eleven-lab-app
+    environment:
+      - REACT_APP_PORT=${REACT_APP_PORT}
+    expose:
+      - ${REACT_APP_PORT}
+    ports:
+      - ${REACT_APP_PORT}:${REACT_APP_PORT}
+    volumes:
+      - ./eleven-lab-app/:/usr/app/eleven-lab-app
+    links:
+      - server
+    command: yarn start
+
+################################
+#
+#   Setup postgres container
+#
+################################
+  postgres:
+    image: postgres:9.6.2-alpine
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
